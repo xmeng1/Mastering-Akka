@@ -80,7 +80,7 @@ trait BookstorePlan extends async.Plan with ServerErrorResponse{
    * @param status A Status to respond with, defaulting to Ok if not supplied
    * @return An Unfiltered ResponseFunction
    */
-  def asJson[T <: AnyRef](apiResp:ApiResponse[T], status:Status = Ok) = {
+  def asJson[T <: AnyRef](apiResp:ApiResponse[T], status:Status = Ok): ResponseFunction[HttpResponse] = {
     val ser = write(apiResp)          
     status ~> JsonContent ~> ResponseString(ser)    
   }
