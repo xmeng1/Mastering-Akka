@@ -23,12 +23,15 @@ import akka.util.Timeout
 
 import scala.concurrent.duration._
 
+
+
 object WorkMaster {
   sealed trait Command
   case object StartProcessing extends Command
   case object DoWorkerWork extends Command
   final case class IterationCount(count: Long) extends Command
-  def props(workerCount: Int) = Props(classOf[WorkMaster], workerCount)
+  def props(workerCount: Int) = Props(
+    classOf[WorkMaster], workerCount)
 }
 
 class WorkMaster(workerCount: Int) extends Actor {
@@ -110,3 +113,5 @@ object ParallelismExample extends App {
         system.terminate()
     }
 }
+
+// 需要梳理清楚之间得关系， pool 中创建得 worker 是独立得  actor， Receive 看作是状态，状态之下是处理相应得消息类型。状态得参数是状态之间转化的时候传入得，用于状态变化中消除某些可变得成员变量 var。

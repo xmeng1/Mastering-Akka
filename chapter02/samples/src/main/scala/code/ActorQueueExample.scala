@@ -23,13 +23,13 @@ object ActorQueue {
   sealed trait Command
   final case class Enqueue(item: Int) extends Command
   case object Dequeue extends Command
-  def props = Props[ActorQueue]
+  def props: Props = Props[ActorQueue]
 }
 
 class ActorQueue extends Actor with Stash {
   import ActorQueue._
 
-  def receive = emptyReceive
+  def receive: Receive = emptyReceive
 
   def emptyReceive: Receive = LoggingReceive {
     case Enqueue(item) ⇒
@@ -54,23 +54,27 @@ class ActorQueue extends Actor with Stash {
 }
 
 object ProducerActor {
-  def props(queue: ActorRef) = Props(classOf[ProducerActor], queue)
+  //def props(queue: ActorRef) = Props(classOf[ProducerActor], queue)
+  // see https://stackoverflow.com/questions/45396809/scala-intellij-warning-dynamic-invocation-could-be-replaced-with-a-constructor
+  // https://doc.akka.io/docs/akka/2.5.3/scala/actors.html#recommended-practices
+  def props(queue: ActorRef) = Props(new ProducerActor(queue))
 }
 
 class ProducerActor(queue: ActorRef) extends Actor {
-  def receive = {
+  def receive: PartialFunction[Any, Unit] = {
     case "start" ⇒
       for (i ← 1 to 1000) queue ! ActorQueue.Enqueue(i)
   }
 }
 
 object ConsumerActor {
-  def props(queue: ActorRef) = Props(classOf[ConsumerActor], queue)
+  //def props(queue: ActorRef) = Props(classOf[ConsumerActor], queue)
+  def props(queue: ActorRef) = Props(new ConsumerActor(queue))
 }
 
 class ConsumerActor(queue: ActorRef) extends Actor with ActorLogging {
 
-  def receive = consumerReceive(1000)
+  def receive: Receive = consumerReceive(1000)
 
   def consumerReceive(remaining: Int): Receive = {
     case "start" ⇒
@@ -93,7 +97,7 @@ object ActorQueueExample extends App {
   val queue = system.actorOf(ActorQueue.props)
 
   val pairs =
-    for (i ← 1 to 10) yield {
+    for (_ ← 1 to 10) yield {
       val producer = system.actorOf(ProducerActor.props(queue))
       val consumer = system.actorOf(ConsumerActor.props(queue))
       (consumer, producer)
@@ -109,11 +113,11 @@ object ActorQueueExample extends App {
 }
 
 object ShutdownReaper {
-  def props = Props[ShutdownReaper]
+  def props: Props = Props[ShutdownReaper]
 }
 
 class ShutdownReaper extends Actor {
-  def receive = shutdownReceive(0)
+  def receive: Receive = shutdownReceive(0)
   def shutdownReceive(watching: Int): Receive = {
     case ref: ActorRef ⇒
       context.watch(ref)
