@@ -211,7 +211,7 @@ abstract class EntityAggregate[FO <: EntityFieldsObject[FO], E <: EntityActor[FO
         context.actorOf(entityProps(id))
     }
   }
-  
+
   def persistOperation(id:Int, msg:Any){
     val entity = lookupOrCreateChild(id)
     entity.forward(msg)    

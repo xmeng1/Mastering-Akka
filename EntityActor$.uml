@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.packt.masteringakka.bookstore.common.EntityActor$</OriginalElement>
+  <nodes>
+    <node x="137.0" y="0.0">com.packt.masteringakka.bookstore.common.BookstoreActor</node>
+    <node x="0.0" y="190.0">com.packt.masteringakka.bookstore.common.BookstoreRepository</node>
+    <node x="0.0" y="353.0">com.packt.masteringakka.bookstore.common.EntityActor$</node>
+    <node x="241.0" y="97.5">com.packt.masteringakka.bookstore.common.EntityAggregate</node>
+    <node x="0.0" y="84.0">com.packt.masteringakka.bookstore.common.EntityActor</node>
+    <node x="240.0" y="190.0">com.packt.masteringakka.bookstore.common.EntityFieldsObject</node>
+    <node x="183.0" y="353.0">com.packt.masteringakka.bookstore.common.EntityActor.State</node>
+    <node x="313.0" y="353.0">com.packt.masteringakka.bookstore.common.EntityActor.Data</node>
+    <node x="15.0" y="274.0">com.packt.masteringakka.bookstore.common.EntityRepository</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.packt.masteringakka.bookstore.common.EntityActor" target="com.packt.masteringakka.bookstore.common.BookstoreActor">
+      <point x="0.0" y="-30.5" />
+      <point x="110.5" y="59.0" />
+      <point x="176.75" y="59.0" />
+      <point x="-39.75" y="17.0" />
+    </edge>
+    <edge source="com.packt.masteringakka.bookstore.common.EntityAggregate" target="com.packt.masteringakka.bookstore.common.BookstoreActor">
+      <point x="0.0" y="-17.0" />
+      <point x="322.5" y="59.0" />
+      <point x="256.25" y="59.0" />
+      <point x="39.75" y="17.0" />
+    </edge>
+    <edge source="com.packt.masteringakka.bookstore.common.EntityRepository" target="com.packt.masteringakka.bookstore.common.BookstoreRepository">
+      <point x="0.0" y="-17.0" />
+      <point x="0.0" y="17.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="180.0" y="151.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

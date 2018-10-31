@@ -24,6 +24,8 @@ class UserEndpoint(userManager:ActorRef)(implicit val ec:ExecutionContext) exten
   object EmailParam extends Params.Extract("email", Params.first ~> Params.nonempty)
   
   def intent = {
+      // about the @ symbol in Pattern Matching https://stackoverflow.com/a/2359365/2000468
+      // 这里我们直接处理 req，所以加 @
     case req @ GET(Path(Seg("api" :: "user" :: IntPathElement(userId) :: Nil))) =>
       val f = (userManager ? FindUserById(userId))
       respond(f, req)
@@ -33,10 +35,10 @@ class UserEndpoint(userManager:ActorRef)(implicit val ec:ExecutionContext) exten
       respond(f, req)      
     
     case req @ POST(Path(Seg("api" :: "user" :: Nil))) =>
-      val input = parseJson[UserInput](Body.string(req))
-      val f = (userManager ? CreateUser(input))
-      respond(f, req)
-      
+
+        val f = (userManager ? CreateUser(input))
+        val input = parseJson[UserInput](Body.string(req))
+        respond(f, req)
     case req @ PUT(Path(Seg("api" :: "user" :: IntPathElement(userId) :: Nil))) =>
       val input = parseJson[UserInput](Body.string(req))
       val f = (userManager ? UpdateUserInfo(userId, input))

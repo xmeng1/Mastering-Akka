@@ -11,9 +11,8 @@ services:
       - "CASSANDRA_CLUSTER_NAME=OUR_DOCKERIZED_CASSANDRA_SINGLE_NODE_CLUSTER"
 
   elasticsearch:
-    image: elasticsearch:2.3.3
-    # new version not work
-#    image: elasticsearch:6.4.2
+#    image: elasticsearch:2.3.3
+    image: elasticsearch:6.4.2
     container_name: elasticsearch
     hostname: elasticsearch
     ports:

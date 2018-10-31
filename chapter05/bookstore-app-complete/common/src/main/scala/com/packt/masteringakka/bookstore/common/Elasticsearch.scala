@@ -81,7 +81,7 @@ trait ElasticsearchUpdateSupport extends ElasticsearchSupport{ me:ViewBuilder[_]
   def waitingForEsResult(req:Req):Receive = {
     case es:EsResponse =>
       log.info("Successfully processed a request against the index for url: {}", req.toRequest.getUrl())
-      context.become(handlingEvents)
+      context.become(me.handlingEvents)
       unstashAll      
       
     case akka.actor.Status.Failure(ex) =>

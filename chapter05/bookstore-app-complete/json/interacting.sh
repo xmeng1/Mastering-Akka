@@ -47,7 +47,7 @@ function clearReadModel {
 }
 
 function restartBookstore {
-    docker restart bookstore
+#    docker restart bookstore
     wait 8080 Bookstore
 }
 
